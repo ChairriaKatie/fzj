@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试你和范自军的匹配程度</title>
+    <!-- Tailwind CSS v3 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e88e5', // 佛山一中蓝色
+                        secondary: '#4caf50', // 绿色作为辅助色
+                        accent: '#ff9800', // 橙色作为强调色
+                        neutral: '#f5f5f5', // 浅灰色背景
+                        dark: '#333333', // 深色文字
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .transition-all-300 {
+                transition: all 0.3s ease;
+            }
+            .option-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            }
+        }
+        
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e88e5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1565c0;
+        }
+        
+        /* 答题页面切换动画 */
+        .question-enter {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        .question-enter-active {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .question-exit {
+            opacity: 1;
+        }
+        .question-exit-active {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        
+        /* 进度条动画 */
+        @keyframes progress {
+            from { width: 0%; }
+            to { width: var(--progress-width); }
+        }
+        .progress-bar {
+            animation: progress 1s ease-out forwards;
+        }
+        
+        /* 范自军形象动画 */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* 心跳动画 */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.1); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.15); }
+            70% { transform: scale(1); }
+        }
+        .heartbeat-animation {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-neutral min-h-screen font-sans text-dark">
+    <!-- 顶部导航 -->
+    <header class="bg-primary text-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="https://p11-doubao-search-sign.byteimg.com/ecom-shop-material/jpeg_m_e42493f3437d3d5d93e9ff583608760d_sx_150206_www800-800~tplv-be4g95zd3a-image.jpeg?rk3s=542c0f93&x-expires=1778833933&x-signature=aJYsA%2FE6UygX%2FX%2F0qTq%2FURMwTK0%3D" alt="佛山一中校徽" class="h-10 w-10 rounded-full">
+                <h1 class="text-xl md:text-2xl font-bold text-shadow">测试你和范自军的匹配程度</h1>
+            </div>
+            <div class="hidden md:block">
+                <span class="text-sm bg-accent px-3 py-1 rounded-full">趣味测试</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- 开始页面 -->
+        <section id="start-screen" class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8" data-aos="fade-up">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-6 md:mb-0" data-aos="fade-right" data-aos-delay="100">
+                    <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">准备好测试你的缘分了吗？</h2>
+                    <p class="text-lg mb-6">通过回答一系列问题，测试你和佛山一中校长范自军的匹配程度，看看你们是否有成为"最佳拍档"的潜力！</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fa fa-check-circle text-secondary mr-2"></i>
+                            <span>回答20道趣味问题</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fa fa-check-circle text-secondary mr-2"></i>
+                            <span>获取专属匹配百分比</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fa fa-check-circle text-secondary mr-2"></i>
+                            <span>揭秘你们的"攻受关系"</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fa fa-check-circle text-secondary mr-2"></i>
+                            <span>生成专属评语</span>
+                        </div>
+                    </div>
+                    <button id="start-test" class="mt-8 bg-primary hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                        开始测试 <i class="fa fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                <div class="md:w-1/2 flex justify-center" data-aos="fade-left" data-aos-delay="200">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-accent rounded-full opacity-20 animate-pulse-slow"></div>
+                        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/76a15b74ba7c40faa378b72144dfeae2~tplv-a9rns2rl98-image.image?rcl=202511161632039294FDD69EB4F83BAB3F&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1765873944&x-signature=A3zJqCHvJZUcKVMhhTGjQ3%2B1Tbo%3D" alt="范自军卡通形象" class="w-64 h-64 object-contain relative z-10 float-animation">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 答题页面 -->
+        <section id="quiz-screen" class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8 hidden">
+            <!-- 进度条 -->
+            <div class="mb-6">
+                <div class="flex justify-between text-sm mb-1">
+                    <span>问题 <span id="current-question">1</span>/20</span>
+                    <span id="progress-text">5%</span>
+                </div>
+                <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="h-full bg-primary progress-bar" style="--progress-width: 5%"></div>
+                </div>
+            </div>
+            
+            <!-- 问题区域 -->
+            <div id="question-container">
+                <h2 id="question-text" class="text-2xl font-bold mb-6 text-center" data-aos="fade-up">问题加载中...</h2>
+                
+                <!-- 选项区域 -->
+                <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- 选项将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <!-- 导航按钮 -->
+            <div class="flex justify-between mt-8">
+                <button id="prev-btn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg shadow transition-all-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    <i class="fa fa-arrow-left mr-2"></i> 上一题
+                </button>
+                <button id="next-btn" class="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow transition-all-300">
+                    下一题 <i class="fa fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- 结果页面 -->
+        <section id="result-screen" class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8 hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-primary mb-2" data-aos="fade-up">测试结果</h2>
+                <p class="text-lg text-gray-600" data-aos="fade-up" data-aos-delay="100">看看你和范自军的匹配程度如何！</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center justify-between mb-8">
+                <div class="md:w-1/2 mb-6 md:mb-0" data-aos="fade-right" data-aos-delay="200">
+                    <div class="relative inline-block">
+                        <div class="absolute inset-0 bg-red-500 rounded-full opacity-20 animate-pulse-slow heartbeat-animation"></div>
+                        <div id="match-percentage" class="text-7xl font-bold text-primary relative z-10">0%</div>
+                    </div>
+                    <h3 class="text-xl font-semibold mt-2" id="match-level">匹配程度</h3>
+                    
+                    <div class="mt-6 p-4 bg-neutral rounded-lg">
+                        <h4 class="font-bold mb-2">你们的关系：</h4>
+                        <div id="relationship-result" class="text-lg">
+                            <!-- 关系结果将通过JavaScript动态生成 -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 flex justify-center" data-aos="fade-left" data-aos-delay="300">
+                    <div id="role-result" class="text-center p-6 bg-neutral rounded-lg">
+                        <h4 class="text-xl font-bold mb-4">攻受关系</h4>
+                        <div id="role-icon" class="w-32 h-32 mx-auto mb-4">
+                            <!-- 攻受图标将通过JavaScript动态生成 -->
+                        </div>
+                        <p id="role-description" class="text-lg">
+                            <!-- 攻受描述将通过JavaScript动态生成 -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 评语区域 -->
+            <div class="bg-neutral p-6 rounded-lg mb-8" data-aos="fade-up" data-aos-delay="400">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                    <i class="fa fa-comment text-primary mr-2"></i> 专属评语
+                </h3>
+                <p id="commentary" class="text-lg">
+                    <!-- 评语将通过JavaScript动态生成 -->
+                </p>
+            </div>
+            
+            <!-- 范自军特点分析 -->
+            <div class="mb-8" data-aos="fade-up" data-aos-delay="500">
+                <h3 class="text-xl font-bold mb-4">范自军校长特点分析</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-neutral p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i class="fa fa-user-circle text-primary mr-2"></i>
+                            <h4 class="font-bold">个人特质</h4>
+                        </div>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>佛山一中校长，职位高</li>
+                            <li>身高中等，有点小帅</li>
+                            <li>说话富有停顿</li>
+                            <li>在学生之中名声一般</li>
+                        </ul>
+                    </div>
+                    <div class="bg-neutral p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i class="fa fa-heart text-primary mr-2"></i>
+                            <h4 class="font-bold">理想匹配</h4>
+                        </div>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>能够理解并支持他的工作</li>
+                            <li>有耐心听他说话（特别是停顿的时候）</li>
+                            <li>能够适应他的工作节奏</li>
+                            <li>对教育事业有热情</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 重新测试按钮 -->
+            <div class="text-center" data-aos="fade-up" data-aos-delay="600">
+                <button id="restart-test" class="bg-primary hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    <i class="fa fa-refresh mr-2"></i> 重新测试
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-2">趣味测试 Chairria Katie</p>
+            <p class="text-sm text-gray-400">本测试仅供娱乐，请勿当真</p>
+            <div class="mt-4 flex justify-center space-x-4">
+                <a href="#" class="text-gray-400 hover:text-white transition-all-300">
+                    <i class="fa fa-weixin fa-lg"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition-all-300">
+                    <i class="fa fa-weibo fa-lg"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition-all-300">
+                    <i class="fa fa-qq fa-lg"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 初始化AOS动画库
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+        });
+
+        // 问题数据
+        const questions = [
+            {
+                text: "你喜欢什么样的说话方式？",
+                options: [
+                    { text: "直接明了，不拖泥带水", score: 3 },
+                    { text: "富有停顿，思考后再表达", score: 10 },
+                    { text: "幽默风趣，充满笑点", score: 5 },
+                    { text: "温柔细腻，娓娓道来", score: 7 }
+                ]
+            },
+            {
+                text: "你对对方的外貌要求是？",
+                options: [
+                    { text: "必须是帅哥/美女", score: 3 },
+                    { text: "长相普通就好", score: 7 },
+                    { text: "有点小帅/小漂亮就行", score: 10 },
+                    { text: "无所谓，内在更重要", score: 5 }
+                ]
+            },
+            {
+                text: "你如何看待 authority（权威）？",
+                options: [
+                    { text: "尊重并服从", score: 10 },
+                    { text: "保持距离，敬而远之", score: 5 },
+                    { text: "质疑并挑战", score: 3 },
+                    { text: "视情况而定", score: 7 }
+                ]
+            },
+            {
+                text: "你喜欢的身高类型是？",
+                options: [
+                    { text: "高高大大，有安全感", score: 3 },
+                    { text: "比自己高一点就好", score: 7 },
+                    { text: "和自己差不多", score: 10 },
+                    { text: "比自己矮也没关系", score: 5 }
+                ]
+            },
+            {
+                text: "你如何处理人际关系中的矛盾？",
+                options: [
+                    { text: "直接面对，坦诚沟通", score: 7 },
+                    { text: "冷静分析，找出解决方案", score: 10 },
+                    { text: "避免冲突，保持和谐", score: 5 },
+                    { text: "顺其自然，不刻意强求", score: 3 }
+                ]
+            },
+            {
+                text: "你对对方的社会地位要求是？",
+                options: [
+                    { text: "必须比自己高", score: 3 },
+                    { text: "和自己相当", score: 7 },
+                    { text: "无所谓，真心最重要", score: 5 },
+                    { text: "最好是管理层", score: 10 }
+                ]
+            },
+            {
+                text: "你喜欢的性格类型是？",
+                options: [
+                    { text: "外向开朗，热情活泼", score: 5 },
+                    { text: "内向沉稳，深思熟虑", score: 10 },
+                    { text: "幽默风趣，善于社交", score: 3 },
+                    { text: "温柔体贴，善解人意", score: 7 }
+                ]
+            },
+            {
+                text: "你如何看待工作狂？",
+                options: [
+                    { text: "欣赏其敬业精神", score: 10 },
+                    { text: "无法理解，生活更重要", score: 3 },
+                    { text: "可以接受，但要有度", score: 7 },
+                    { text: "无所谓，个人选择", score: 5 }
+                ]
+            },
+            {
+                text: "你喜欢的约会方式是？",
+                options: [
+                    { text: "浪漫晚餐，烛光摇曳", score: 5 },
+                    { text: "安静散步，谈心聊天", score: 10 },
+                    { text: "刺激冒险，寻求快感", score: 3 },
+                    { text: "文化体验，如看展览、听讲座", score: 7 }
+                ]
+            },
+            {
+                text: "你对对方的语言表达能力要求是？",
+                options: [
+                    { text: "口若悬河，能言善辩", score: 3 },
+                    { text: "表达清晰，逻辑严谨", score: 10 },
+                    { text: "幽默风趣，善于调侃", score: 5 },
+                    { text: "温柔细腻，善于倾听", score: 7 }
+                ]
+            },
+            {
+                text: "你如何看待对方在他人眼中的评价？",
+                options: [
+                    { text: "非常重要，在乎他人看法", score: 3 },
+                    { text: "有点重要，会参考一下", score: 7 },
+                    { text: "不太重要，自己了解就好", score: 10 },
+                    { text: "完全不在乎，坚持自我", score: 5 }
+                ]
+            },
+            {
+                text: "你喜欢的相处模式是？",
+                options: [
+                    { text: "形影不离，时刻在一起", score: 3 },
+                    { text: "保持适当距离，有各自空间", score: 10 },
+                    { text: "时而亲密，时而独立", score: 7 },
+                    { text: "顺其自然，不强求", score: 5 }
+                ]
+            },
+            {
+                text: "你对对方的事业心要求是？",
+                options: [
+                    { text: "必须有强烈的事业心", score: 10 },
+                    { text: "有一定追求就好", score: 7 },
+                    { text: "平淡安稳更重要", score: 5 },
+                    { text: "无所谓，开心就好", score: 3 }
+                ]
+            },
+            {
+                text: "你喜欢的决策方式是？",
+                options: [
+                    { text: "果断决策，迅速行动", score: 3 },
+                    { text: "深思熟虑，谨慎选择", score: 10 },
+                    { text: "听取建议，集体决策", score: 7 },
+                    { text: "顺其自然，随机应变", score: 5 }
+                ]
+            },
+            {
+                text: "你对对方的生活习惯要求是？",
+                options: [
+                    { text: "必须整洁有序", score: 3 },
+                    { text: "基本整洁就好", score: 7 },
+                    { text: "有点乱也没关系", score: 5 },
+                    { text: "无所谓，自己适应", score: 10 }
+                ]
+            },
+            {
+                text: "你喜欢的沟通频率是？",
+                options: [
+                    { text: "每天都要联系", score: 3 },
+                    { text: "隔几天联系一次", score: 7 },
+                    { text: "有事情才联系", score: 10 },
+                    { text: "顺其自然，不刻意", score: 5 }
+                ]
+            },
+            {
+                text: "你对对方的教育背景要求是？",
+                options: [
+                    { text: "必须是名牌大学", score: 3 },
+                    { text: "本科以上就好", score: 7 },
+                    { text: "无所谓，能力更重要", score: 5 },
+                    { text: "最好是教育领域的专家", score: 10 }
+                ]
+            },
+            {
+                text: "你喜欢的礼物类型是？",
+                options: [
+                    { text: "实用的日常用品", score: 7 },
+                    { text: "浪漫的鲜花巧克力", score: 3 },
+                    { text: "有纪念意义的定制礼物", score: 5 },
+                    { text: "书籍或知识类礼物", score: 10 }
+                ]
+            },
+            {
+                text: "你如何看待对方的缺点？",
+                options: [
+                    { text: "必须完美，不能有缺点", score: 3 },
+                    { text: "可以接受小缺点", score: 7 },
+                    { text: "缺点也是个性的一部分", score: 10 },
+                    { text: "只要不触碰底线就好", score: 5 }
+                ]
+            },
+            {
+                text: "你对这段关系的期望是？",
+                options: [
+                    { text: "轰轰烈烈，刻骨铭心", score: 3 },
+                    { text: "细水长流，平淡是真", score: 10 },
+                    { text: "充满激情，不断探索", score: 5 },
+                    { text: "相互扶持，共同成长", score: 7 }
+                ]
+            }
+        ];
+
+        // 评语数据
+        const commentaries = {
+            high: [
+                "恭喜！你和范自军校长简直是天造地设的一对！你们在性格、价值观和生活方式上都高度契合。范校长说话时的停顿在你看来可能是深思熟虑的表现，而不是犹豫。你欣赏他的专业能力和领导才能，他也会被你的理解和支持所吸引。你们的关系可能会像一本精心编写的教育大纲，既有结构又充满智慧。记住，当他在讲话中停顿的时候，耐心等待，那可能是他正在组织最精彩的观点！",
+                "哇！你和范自军校长的匹配度高得惊人！你们就像是教育理论中的完美案例，相辅相成，缺一不可。你欣赏他的权威和专业，他也会被你的独特魅力所折服。你们的对话可能会充满深度和思考，每一个停顿都是思想碰撞的火花。记住，在这段关系中，你们既是师生，又是伙伴，更是灵魂伴侣。范校长在学生中的名声一般？没关系，在你这里，他就是最特别的存在！",
+                "简直是命中注定！你和范自军校长的匹配度突破天际！你们在各个方面都高度契合，仿佛是为彼此而生。你欣赏他的沉稳和专业，他也会被你的热情和理解所吸引。你们的关系可能会像一所精心管理的学校，既有秩序又充满活力。当范校长说话时，请耐心倾听每一个停顿，那里可能藏着他最深沉的思考和最真挚的情感。你们的未来充满无限可能，就像佛山一中的学生们一样，潜力无限！"
+            ],
+            medium: [
+                "不错！你和范自军校长有一定的匹配度。你们在某些方面有着共同的价值观和兴趣爱好，但在其他方面可能需要更多的理解和包容。范校长说话时的停顿可能会让你有些不耐烦，但请试着理解，那是他思考的方式。你们的关系就像一堂生动的课程，既有挑战也有收获。记住，在这段关系中，沟通是关键。试着从他的角度看问题，你会发现他的魅力所在。范校长在学生中的名声一般？也许你可以帮助他改善形象，成为他最得力的'公关助手'！",
+                "还不错！你和范自军校长的匹配度处于中等水平。你们有一定的共同语言和兴趣爱好，但也存在一些需要磨合的地方。你可能欣赏他的某些特质，如专业能力和领导才能，但对其他方面可能需要更多的理解。你们的关系就像一场有趣的辩论赛，充满了思想的碰撞和观点的交流。当范校长说话时，请试着耐心等待他的下一句话，你可能会有意想不到的收获。记住，每一段关系都需要双方的努力和理解，你们也不例外。",
+                "还行！你和范自军校长有一定的缘分。你们在某些方面能够相互理解和支持，但在其他方面可能需要更多的沟通和妥协。范校长的权威和专业可能会让你有些压力，但也请试着欣赏他的优点。你们的对话可能会像一场精彩的讲座，既有知识的传递，也有思想的交流。记住，在这段关系中，你们既是伙伴也是学习者，相互成长，共同进步。范校长在学生中的名声一般？也许你可以成为他与学生之间的桥梁，帮助他更好地了解年轻一代的想法。"
+            ],
+            low: [
+                "嗯...你和范自军校长的匹配度有些低。你们在很多方面可能存在较大的差异，需要更多的努力和理解才能建立和谐的关系。范校长说话时的停顿可能会让你感到不耐烦，他的权威形象也可能让你感到压力。你们的关系就像一门难懂的课程，需要付出更多的努力才能取得好成绩。记住，差异也是一种美，试着从不同的角度看问题，你可能会发现新的乐趣。如果你们真的走到一起，那将是一场充满挑战但也充满成长的旅程。",
+                "看来你和范自军校长的匹配度不高。你们在性格、价值观和生活方式上可能存在较大的差异，需要双方都做出很大的努力和改变才能和谐相处。范校长的沉稳和你的活泼可能会形成鲜明的对比，他的权威形象也可能让你感到不自在。你们的关系就像一场艰难的考试，需要全力以赴才能通过。记住，每一段关系都需要双方的付出和理解，如果你们真的在意彼此，就请试着包容对方的不同，共同成长。",
+                "抱歉，你和范自军校长的匹配度较低。你们在很多方面可能存在较大的差异，建立和谐的关系可能需要更多的努力和妥协。范校长说话时的停顿可能会让你感到困惑，他的工作方式也可能与你的期望不符。你们的关系就像一本难懂的教科书，需要花费更多的时间和精力才能理解。记住，虽然匹配度不高，但这并不意味着你们不能建立良好的关系。只要双方都有诚意和耐心，任何差异都可以通过沟通和理解来化解。"
+            ]
+        };
+
+        // 攻受关系描述
+        const roleDescriptions = {
+            attacker: {
+                icon: '<i class="fa fa-arrow-up text-5xl text-primary"></i>',
+                description: "你是这段关系中的'攻'！你具有强烈的领导能力和决策能力，能够在关系中占据主导地位。你喜欢掌控局面，并且有能力带领对方走向更好的未来。在与范校长的关系中，你可能会是那个主动出击的人，用你的热情和魅力征服他的心。"
+            },
+            receiver: {
+                icon: '<i class="fa fa-arrow-down text-5xl text-secondary"></i>',
+                description: "你是这段关系中的'受'！你温柔体贴，善于倾听和理解他人，能够给予对方足够的支持和鼓励。在关系中，你更倾向于跟随对方的节奏，享受被照顾和被引领的感觉。在与范校长的关系中，你可能会被他的权威和专业所吸引，愿意在他的指导下共同成长。"
+            },
+            switch: {
+                icon: '<i class="fa fa-exchange text-5xl text-accent"></i>',
+                description: "你是这段关系中的'可攻可受'！你兼具领导能力和倾听能力，能够根据不同的情况灵活调整自己的角色。在关系中，你既可以是那个主动出击的人，也可以是那个温柔体贴的伴侣。在与范校长的关系中，你们可能会形成一种动态平衡，时而他主导，时而你主导，共同创造一段充满活力和变化的关系。"
+            }
+        };
+
+        // 匹配程度描述
+        const matchLevels = {
+            high: "天造地设",
+            medium: "有缘分但需努力",
+            low: "需要很大的磨合"
+        };
+
+        // 关系结果描述
+        const relationshipResults = {
+            high: "你们是灵魂伴侣！范自军校长的每一个停顿在你看来都是深思熟虑的表现，他的权威形象在你眼中充满魅力。你们的关系就像一本精心编写的教育大纲，既有结构又充满智慧。",
+            medium: "你们是不错的伴侣！你们有一定的共同语言和兴趣爱好，但也需要更多的理解和包容。范校长的某些特质可能会让你有些不适，但总体来说，你们能够建立一段和谐的关系。",
+            low: "你们是挑战型伴侣！你们在很多方面存在差异，需要双方都做出很大的努力和改变才能和谐相处。但如果你们真的在意彼此，这些差异也可能成为你们关系中最特别的部分。"
+        };
+
+        // 全局变量
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let totalScore = 0;
+
+        // DOM元素
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startTestBtn = document.getElementById('start-test');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const restartTestBtn = document.getElementById('restart-test');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const matchPercentageSpan = document.getElementById('match-percentage');
+        const matchLevelSpan = document.getElementById('match-level');
+        const relationshipResultDiv = document.getElementById('relationship-result');
+        const roleIconDiv = document.getElementById('role-icon');
+        const roleDescriptionDiv = document.getElementById('role-description');
+        const commentaryDiv = document.getElementById('commentary');
+
+        // 开始测试按钮点击事件
+        startTestBtn.addEventListener('click', function() {
+            startScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            loadQuestion(0);
+        });
+
+        // 下一题按钮点击事件
+        nextBtn.addEventListener('click', function() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion(currentQuestionIndex);
+                updateProgress();
+                
+                // 启用上一题按钮
+                if (currentQuestionIndex > 0) {
+                    prevBtn.disabled = false;
+                }
+            } else {
+                // 计算结果
+                calculateResult();
+                // 显示结果页面
+                quizScreen.classList.add('hidden');
+                resultScreen.classList.remove('hidden');
+            }
+        });
+
+        // 上一题按钮点击事件
+        prevBtn.addEventListener('click', function() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion(currentQuestionIndex);
+                updateProgress();
+                
+                // 禁用上一题按钮（如果是第一题）
+                if (currentQuestionIndex === 0) {
+                    prevBtn.disabled = true;
+                }
+            }
+        });
+
+        // 重新测试按钮点击事件
+        restartTestBtn.addEventListener('click', function() {
+            // 重置变量
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            totalScore = 0;
+            
+            // 更新UI
+            updateProgress();
+            prevBtn.disabled = true;
+            
+            // 显示答题页面
+            resultScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // 加载第一题
+            loadQuestion(0);
+        });
+
+        // 加载问题
+        function loadQuestion(index) {
+            const question = questions[index];
+            questionText.textContent = question.text;
+            currentQuestionSpan.textContent = index + 1;
+            
+            // 清空选项容器
+            optionsContainer.innerHTML = '';
+            
+            // 添加选项
+            question.options.forEach((option, optionIndex) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'bg-neutral p-4 rounded-lg cursor-pointer transition-all-300 option-hover';
+                
+                // 如果用户已经回答过这个问题，显示选中状态
+                if (userAnswers[index] === optionIndex) {
+                    optionDiv.classList.add('bg-primary', 'text-white');
+                }
+                
+                optionDiv.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="w-6 h-6 rounded-full border-2 border-gray-400 flex items-center justify-center mr-3">
+                            <span class="option-letter">${String.fromCharCode(65 + optionIndex)}</span>
+                        </div>
+                        <span>${option.text}</span>
+                    </div>
+                `;
+                
+                // 选项点击事件
+                optionDiv.addEventListener('click', function() {
+                    // 记录用户答案
+                    userAnswers[index] = optionIndex;
+                    
+                    // 更新选中状态
+                    document.querySelectorAll('#options-container > div').forEach(div => {
+                        div.classList.remove('bg-primary', 'text-white');
+                    });
+                    this.classList.add('bg-primary', 'text-white');
+                    
+                    // 启用下一题按钮
+                    nextBtn.disabled = false;
+                });
+                
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            // 如果用户已经回答过这个问题，禁用下一题按钮
+            if (userAnswers[index] === undefined) {
+                nextBtn.disabled = true;
+            } else {
+                nextBtn.disabled = false;
+            }
+        }
+
+        // 更新进度条
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressBar.style.setProperty('--progress-width', `${progress}%`);
+            progressText.textContent = `${Math.round(progress)}%`;
+        }
+
+        // 计算结果
+        function calculateResult() {
+            // 计算总分
+            totalScore = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] !== undefined) {
+                    totalScore += questions[i].options[userAnswers[i]].score;
+                }
+            }
+            
+            // 计算匹配百分比（总分200分，转换为0-100%）
+            const matchPercentage = Math.round((totalScore / 200) * 100);
+            
+            // 确定匹配程度
+            let matchLevel;
+            if (matchPercentage >= 70) {
+                matchLevel = 'high';
+            } else if (matchPercentage >= 40) {
+                matchLevel = 'medium';
+            } else {
+                matchLevel = 'low';
+            }
+            
+            // 确定攻受关系（基于总分的奇偶性和随机因素）
+            let role;
+            const randomFactor = Math.random();
+            if (totalScore % 2 === 0 && randomFactor > 0.33) {
+                role = 'attacker';
+            } else if (totalScore % 2 === 1 && randomFactor > 0.33) {
+                role = 'receiver';
+            } else {
+                role = 'switch';
+            }
+            
+            // 更新结果页面
+            updateResultPage(matchPercentage, matchLevel, role);
+        }
+
+        // 更新结果页面
+        function updateResultPage(matchPercentage, matchLevel, role) {
+            // 显示匹配百分比（带动画效果）
+            let currentPercentage = 0;
+            const percentageInterval = setInterval(() => {
+                currentPercentage++;
+                matchPercentageSpan.textContent = `${currentPercentage}%`;
+                
+                if (currentPercentage >= matchPercentage) {
+                    clearInterval(percentageInterval);
+                }
+            }, 20);
+            
+            // 显示匹配程度
+            matchLevelSpan.textContent = matchLevels[matchLevel];
+            
+            // 显示关系结果
+            relationshipResultDiv.textContent = relationshipResults[matchLevel];
+            
+            // 显示攻受关系
+            roleIconDiv.innerHTML = roleDescriptions[role].icon;
+            roleDescriptionDiv.textContent = roleDescriptions[role].description;
+            
+            // 显示评语（随机选择一条）
+            const commentariesList = commentaries[matchLevel];
+            const randomCommentary = commentariesList[Math.floor(Math.random() * commentariesList.length)];
+            commentaryDiv.textContent = randomCommentary;
+        }
+    </script>
+</body>
+</html>
